@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Configuration.AddJsonFile("config.json", optional: true, reloadOnChange: true); 
+var environment = builder.Environment;
 string envName = environment.EnvironmentName;
 var connection = builder.Configuration.GetSection("ConnectionStrings")[envName];
 builder.Services.AddDbContext<EmployeeManagementContext>(options=>
