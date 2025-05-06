@@ -9,10 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); 
-
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
+builder.Configuration.AddJsonFile("config.json", optional: true, reloadOnChange: true); 
+string envName = environment.EnvironmentName;
+var connection = builder.Configuration.GetSection("ConnectionStrings")[envName];
 builder.Services.AddDbContext<EmployeeManagementContext>(options=>
     options.UseSqlServer(connection));
 
